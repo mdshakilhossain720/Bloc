@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc/counter/counter_state.dart';
+import 'bloc/switch/switch_events_bloc.dart';
+import 'ui/switch/switch_example.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -18,11 +22,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_)=>CounterBloc(),child: MaterialApp(
-      home: CounterState(),
+    return BlocProvider(create: (_) => CounterBloc(),
+      child: BlocProvider(
+      create: (context) =>SwitchBloc(),
+      child: MaterialApp(
+        home:SwitchExample(),
 
+      ),
     ),);
-
   }
 }
 
@@ -31,11 +38,11 @@ class Person extends Equatable {
   final String Name;
   final String age;
 
-  Person({required this.Name,required this.age});
+  Person({required this.Name, required this.age});
 
   @override
   // TODO: implement props
-  List<Object?> get props =>[Name,age];
+  List<Object?> get props => [Name, age];
 
 }
 
