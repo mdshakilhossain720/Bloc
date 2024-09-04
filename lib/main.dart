@@ -1,4 +1,5 @@
 import 'package:blockpattern/bloc/counter/counter_block.dart';
+import 'package:blockpattern/bloc/to_do_list/event_bloc.dart';
 import 'package:blockpattern/ui/counter_state.dart';
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
@@ -22,14 +23,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => CounterBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => CounterBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ToDOBloc(),
+        ),
+      ],
       child: BlocProvider(
-      create: (context) =>SwitchBloc(),
-      child: MaterialApp(
-        home:SwitchExample(),
+        create: (context) => SwitchBloc(),
+        child: MaterialApp(
+          home: SwitchExample(),
 
+        ),
       ),
-    ),);
+    );
   }
 }
 
